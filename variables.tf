@@ -26,6 +26,10 @@ variable "max_instance_count" {
 	description = "Max instance count of the auto-scaling group."
 }
 
+variable "min_instance_count" {
+	description = "Min instance count of the auto-scaling group."
+}
+
 variable "alarm_actions" {
 	type = "list"
 }

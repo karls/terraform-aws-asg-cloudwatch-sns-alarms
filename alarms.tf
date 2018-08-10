@@ -39,6 +39,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "asg_maxed_out" {
+  count = "${var.max_instance_count <= var.min_instance_count ? 0 : 1}"
   alarm_name          = "asg_maxed_out"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "${var.maxed_out_minutes}"
