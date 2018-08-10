@@ -1,5 +1,13 @@
+module "asg_cpu_single_high" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name       = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  attributes = "${compact(concat(var.attributes, list("cpu", "single", "high")))}"
+}
+
 resource "aws_cloudwatch_metric_alarm" "asg_cpu_single_high" {
-  alarm_name          = "asg_cpu_single_high"
+  alarm_name          = "${module.asg_cpu_single_high.id}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "${var.threshold_cpu_single_high_minutes}"
   metric_name         = "CPUUtilization"
@@ -18,8 +26,16 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_single_high" {
   ok_actions     = ["${var.alarm_actions}"]
 }
 
+module "asg_cpu_high" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name       = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  attributes = "${compact(concat(var.attributes, list("cpu", "average", "high")))}"
+}
+
 resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
-  alarm_name          = "asg_cpu_high"
+  alarm_name          = "${module.asg_cpu_high.id}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "CPUUtilization"
@@ -38,9 +54,17 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
   ok_actions     = ["${var.alarm_actions}"]
 }
 
+module "asg_maxed_out" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name       = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  attributes = "${compact(concat(var.attributes, list("asg", "maxed", "out")))}"
+}
+
 resource "aws_cloudwatch_metric_alarm" "asg_maxed_out" {
   count = "${var.max_instance_count <= var.min_instance_count ? 0 : 1}"
-  alarm_name          = "asg_maxed_out"
+  alarm_name          = "${module.asg_maxed_out.id}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "${var.maxed_out_minutes}"
   metric_name         = "GroupInServiceInstances"
