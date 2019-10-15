@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_single_high" {
   namespace           = "AWS/EC2"
 
   dimensions {
-    "AutoScalingGroupName" = "${var.asg_name}"
+    AutoScalingGroupName = "${var.asg_name}"
   }
 
   statistic         = "Maximum"
@@ -42,7 +42,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
   namespace           = "AWS/EC2"
 
   dimensions {
-    "AutoScalingGroupName" = "${var.asg_name}"
+    AutoScalingGroupName = "${var.asg_name}"
   }
 
   statistic         = "Average"
@@ -71,7 +71,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_maxed_out" {
   namespace           = "AWS/AutoScaling"
 
   dimensions {
-    "AutoScalingGroupName" = "${var.asg_name}"
+    AutoScalingGroupName = "${var.asg_name}"
   }
 
   statistic         = "Maximum"
