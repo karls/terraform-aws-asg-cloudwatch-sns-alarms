@@ -13,7 +13,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_single_high" {
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = "${var.asg_name}"
   }
 
@@ -41,7 +41,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = "${var.asg_name}"
   }
 
@@ -70,7 +70,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_maxed_out" {
   metric_name         = "GroupInServiceInstances"
   namespace           = "AWS/AutoScaling"
 
-  dimensions {
+  dimensions = {
     AutoScalingGroupName = "${var.asg_name}"
   }
 
