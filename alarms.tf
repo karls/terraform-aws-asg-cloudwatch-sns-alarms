@@ -22,8 +22,8 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_single_high" {
   threshold         = "${var.threshold_cpu_single_high_use}"
   alarm_description = "Max CPU Utilization has sustained above ${var.threshold_cpu_single_high_use}% for ${var.threshold_cpu_single_high_minutes}m"
 
-  alarm_actions     = ["${var.alarm_actions}"]
-  ok_actions     = ["${var.alarm_actions}"]
+  alarm_actions  = "${var.alarm_actions}"
+  ok_actions     = "${var.alarm_actions}"
 }
 
 module "asg_cpu_high" {
@@ -50,8 +50,8 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
   threshold         = "${var.threshold_cpu_high_use}"
   alarm_description = "Average CPU Utilization was above ${var.threshold_cpu_high_use}% for a 60s period"
 
-  alarm_actions     = ["${var.alarm_actions}"]
-  ok_actions     = ["${var.alarm_actions}"]
+  alarm_actions  = "${var.alarm_actions}"
+  ok_actions     = "${var.alarm_actions}"
 }
 
 module "asg_maxed_out" {
@@ -79,6 +79,6 @@ resource "aws_cloudwatch_metric_alarm" "asg_maxed_out" {
   threshold         = "${var.max_instance_count}"
   alarm_description = "Total in service instances has sustained above ${var.max_instance_count} for ${var.maxed_out_minutes}m. Consider increasing the maximum autoscaling group max instance count."
 
-  alarm_actions     = ["${var.alarm_actions}"]
-  ok_actions     = ["${var.alarm_actions}"]
+  alarm_actions  = "${var.alarm_actions}"
+  ok_actions     = "${var.alarm_actions}"
 }
